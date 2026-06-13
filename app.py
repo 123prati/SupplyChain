@@ -15,19 +15,21 @@ from werkzeug.utils import secure_filename
 
 APP_NAME = "Supply Chain Intelligence Agent"
 BASE_DIR = Path(__file__).resolve().parent
-DATABASE = BASE_DIR / "supply_chain.db"
-UPLOAD_FOLDER = BASE_DIR / "uploads"
-REPORT_FOLDER = BASE_DIR / "reports"
 DATA_FOLDER = BASE_DIR / "data"
 SAMPLE_DATASET = DATA_FOLDER / "supply_chain_data.csv"
 ALLOWED_EXTENSIONS = {"csv"}
+
+WRITABLE_DIR = Path(os.environ.get("SUPPLY_CHAIN_WRITABLE_DIR", "/tmp/supply_chain" if os.environ.get("VERCEL") else BASE_DIR))
+DATABASE = WRITABLE_DIR / "supply_chain.db"
+UPLOAD_FOLDER = WRITABLE_DIR / "uploads"
+REPORT_FOLDER = WRITABLE_DIR / "reports"
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY", "change-this-secret-key")
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024
 
-for folder in (UPLOAD_FOLDER, REPORT_FOLDER, DATA_FOLDER):
+for folder in (WRITABLE_DIR, UPLOAD_FOLDER, REPORT_FOLDER, DATA_FOLDER):
     folder.mkdir(exist_ok=True)
 
 
