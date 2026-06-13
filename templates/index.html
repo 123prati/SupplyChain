@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-head">
+  <div>
+    <p class="kicker">Operations Command Center</p>
+    <h1>Supply Chain Intelligence Dashboard</h1>
+  </div>
+  <a class="btn btn-primary" href="{{ url_for('upload') }}">Upload CSV</a>
+</section>
+
+<section class="metric-grid">
+  {% for key, value in analysis.metrics.items() %}
+    {% if loop.index <= 8 %}
+      <div class="metric"><span>{{ key }}</span><strong>{{ value }}</strong></div>
+    {% endif %}
+  {% endfor %}
+</section>
+
+<div class="two-column">
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Executive Summary</h2>
+      <a href="{{ url_for('summary') }}">Open summary</a>
+    </div>
+    <p class="lead-text">{{ analysis.summary }}</p>
+  </section>
+
+  <section class="panel">
+    <div class="panel-head">
+      <h2>Priority Actions</h2>
+      <a href="{{ url_for('insights') }}">View insights</a>
+    </div>
+    <div class="recommendations">
+      {% for item in analysis.recommendations[:4] %}
+        <article class="recommendation">
+          <span class="severity severity-{{ item.priority|lower }}">{{ item.priority }}</span>
+          <h3>{{ item.title }}</h3>
+          <p>{{ item.detail }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+
+<section class="panel">
+  <div class="panel-head">
+    <h2>Current Dataset</h2>
+    <a href="{{ url_for('preview') }}">Preview rows</a>
+  </div>
+  {% if dataset %}
+    <div class="dataset-line">
+      <span>{{ dataset.name }}</span>
+      <span>{{ dataset.row_count }} rows</span>
+      <span>{{ dataset.uploaded_at }}</span>
+    </div>
+  {% else %}
+    <p class="empty">No dataset loaded.</p>
+  {% endif %}
+</section>
+{% endblock %}

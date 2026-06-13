@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-head">
+  <div><p class="kicker">Demand Forecasting</p><h1>Forecast Signals and ABC Classification</h1></div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Next-Period Demand Forecast</h2></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Product ID</th><th>Product</th><th>Current Demand</th><th>Forecast</th><th>Trend</th></tr></thead>
+      <tbody>
+        {% for item in analysis.forecast %}
+          <tr><td>{{ item.Product_ID }}</td><td>{{ item.Product_Name }}</td><td>{{ item.Current_Demand }}</td><td>{{ item.Forecast_Next_Period }}</td><td>{{ item.Trend }}</td></tr>
+        {% else %}
+          <tr><td colspan="5" class="empty">No forecast data available.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>ABC Inventory Classification</h2></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Product ID</th><th>Product</th><th>Category</th><th>Annual Value</th><th>Cumulative %</th><th>Class</th></tr></thead>
+      <tbody>
+        {% for item in analysis.abc %}
+          <tr><td>{{ item.Product_ID }}</td><td>{{ item.Product_Name }}</td><td>{{ item.Category }}</td><td>${{ "{:,.2f}".format(item.Annual_Value) }}</td><td>{{ item.Cumulative_Percentage }}%</td><td><span class="status status-healthy">{{ item.ABC_Class }}</span></td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

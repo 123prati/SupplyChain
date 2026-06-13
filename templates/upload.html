@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-head">
+  <div><p class="kicker">Data Intake</p><h1>Upload Supply Chain CSV</h1></div>
+  <a class="btn btn-secondary" href="{{ url_for('preview') }}">Preview Current Data</a>
+</section>
+
+<div class="two-column">
+  <section class="panel">
+    <h2>Upload Dataset</h2>
+    <form class="stack-form" method="post" enctype="multipart/form-data">
+      <label>Dataset name<input name="dataset_name" placeholder="Monthly supply plan"></label>
+      <label>CSV file<input type="file" name="file" accept=".csv" required></label>
+      <button class="btn btn-primary">Upload and Analyze</button>
+    </form>
+  </section>
+
+  <section class="panel">
+    <h2>Dataset History</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Name</th><th>Rows</th><th>Uploaded</th><th></th></tr></thead>
+        <tbody>
+          {% for row in datasets %}
+            <tr><td>{{ row.name }}</td><td>{{ row.row_count }}</td><td>{{ row.uploaded_at }}</td><td><a href="{{ url_for('preview', dataset_id=row.id) }}">Preview</a></td></tr>
+          {% else %}
+            <tr><td colspan="4" class="empty">No uploaded datasets yet.</td></tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-head">
+  <div><p class="kicker">Supplier Management</p><h1>Supplier Performance and Lead-Time Risk</h1></div>
+</section>
+
+<section class="metric-grid">
+  <div class="metric"><span>Top Supplier</span><strong>{{ analysis.metrics["Top Supplier"] }}</strong></div>
+  <div class="metric"><span>Supplier Score</span><strong>{{ analysis.metrics["Supplier Performance Score"] }}</strong></div>
+  <div class="metric"><span>Average Lead Time</span><strong>{{ analysis.metrics["Average Lead Time"] }}</strong></div>
+  <div class="metric"><span>Fulfillment Rate</span><strong>{{ analysis.metrics["Order Fulfillment Rate"] }}</strong></div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Supplier Ranking</h2></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Supplier</th><th>Performance</th><th>Rating</th><th>Lead Time</th><th>Total Orders</th><th>Fulfillment</th></tr></thead>
+      <tbody>
+        {% for supplier in analysis.supplier_rank %}
+          <tr>
+            <td>{{ supplier.Supplier_Name }}</td>
+            <td>{{ supplier.performance_score }}</td>
+            <td>{{ supplier.avg_rating }}</td>
+            <td>{{ supplier.avg_lead_time }} days</td>
+            <td>{{ supplier.total_orders|int }}</td>
+            <td>{{ supplier.fulfillment }}%</td>
+          </tr>
+        {% else %}
+          <tr><td colspan="6" class="empty">No suppliers found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

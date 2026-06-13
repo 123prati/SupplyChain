@@ -1,0 +1,13 @@
+Product_ID,Product_Name,Category,Supplier_Name,Supplier_Rating,Warehouse,Inventory_Level,Reorder_Point,Safety_Stock,Purchase_Cost,Selling_Price,Order_Quantity,Lead_Time_Days,Transportation_Cost,Demand,Monthly_Sales,Fulfillment_Rate,Delivery_Status
+P-1001,Industrial Sensor Kit,Electronics,Northstar Components,94,Chicago DC,145,80,45,32.5,58.0,120,8,980,132,118,96,Delivered
+P-1002,Retail Shipping Carton,Packaging,Urban Retail Packs,88,Phoenix FC,2400,600,300,1.1,2.35,1500,5,540,1650,1580,98,Delivered
+P-1003,Hydraulic Pump Assembly,Industrial,Global Freight Parts,72,Savannah Hub,14,20,10,241,389,35,16,1450,27,32,82,Delayed
+P-1004,Temperature Logger,Electronics,Northstar Components,94,Chicago DC,63,70,35,19.5,42.0,80,9,710,75,69,91,Delivered
+P-1005,Medical Grade Gloves,Healthcare,PrimeCare Supplies,91,Newark WH,890,500,220,4.2,7.8,650,7,620,720,690,95,Delivered
+P-1006,Cold Chain Container,Logistics,ArcticMove,78,Dallas Hub,28,35,15,86,142,45,13,1320,41,38,86,In Transit
+P-1007,Barcode Label Roll,Packaging,Urban Retail Packs,88,Phoenix FC,5200,1000,450,0.38,0.82,2100,4,260,1800,1550,97,Delivered
+P-1008,Smart Pallet Tracker,Electronics,Metro IoT Systems,83,Chicago DC,37,55,25,52,89,70,11,1080,64,59,89,Delayed
+P-1009,Forklift Battery,Warehouse,PowerGrid Industrial,80,Savannah Hub,19,12,6,310,475,15,12,860,13,15,93,Delivered
+P-1010,Safety Helmet,Safety,PrimeCare Supplies,91,Newark WH,310,180,80,9.5,18,260,6,430,285,275,96,Delivered
+P-1011,Conveyor Belt Motor,Warehouse,Global Freight Parts,72,Dallas Hub,6,10,5,420,680,12,18,1550,11,9,79,Delayed
+P-1012,Reusable Pallet,Logistics,ArcticMove,78,Savannah Hub,760,300,120,14,26,520,10,1240,480,455,90,In Transit

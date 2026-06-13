@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-head">
+  <div><p class="kicker">Procurement</p><h1>Spend, Margin, and Order Quantities</h1></div>
+</section>
+
+<section class="panel">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Product ID</th><th>Product</th><th>Supplier</th><th>Order Qty</th><th>Purchase Cost</th><th>Selling Price</th><th>Spend</th><th>Margin</th></tr></thead>
+      <tbody>
+        {% for item in procurement %}
+          <tr><td>{{ item.Product_ID }}</td><td>{{ item.Product_Name }}</td><td>{{ item.Supplier_Name }}</td><td>{{ item.Order_Quantity|int }}</td><td>${{ "{:,.2f}".format(item.Purchase_Cost) }}</td><td>${{ "{:,.2f}".format(item.Selling_Price) }}</td><td>${{ "{:,.2f}".format(item.Spend) }}</td><td>${{ "{:,.2f}".format(item.Margin) }}</td></tr>
+        {% else %}
+          <tr><td colspan="8" class="empty">No procurement data found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

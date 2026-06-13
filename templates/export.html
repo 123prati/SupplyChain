@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-head">
+  <div><p class="kicker">Export</p><h1>Download Clean Data and Reports</h1></div>
+</section>
+
+<section class="export-grid">
+  <article class="panel">
+    <h2>Clean Dataset</h2>
+    <p>Download the active dataset after column normalization, missing-value handling, and numeric cleanup.</p>
+    <a class="btn btn-primary" href="{{ url_for('export_dataset') }}">Download Dataset CSV</a>
+  </article>
+  <article class="panel">
+    <h2>Analysis Report</h2>
+    <p>Download KPI values and recommendation details for the latest dataset analysis.</p>
+    <a class="btn btn-primary" href="{{ url_for('export_report') }}">Download Report CSV</a>
+  </article>
+</section>
+{% endblock %}

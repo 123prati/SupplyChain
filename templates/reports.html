@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-head">
+  <div><p class="kicker">Reports</p><h1>Analysis History</h1></div>
+  <a class="btn btn-primary" href="{{ url_for('export_report') }}">Export Latest Report</a>
+</section>
+
+<section class="panel">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Created</th><th>Dataset</th><th>Type</th><th>Summary</th><th>Recommendations</th></tr></thead>
+      <tbody>
+        {% for item in history %}
+          {% set recs = item.recommendations_json|from_json %}
+          <tr><td>{{ item.created_at }}</td><td>{{ item.dataset_name }}</td><td>{{ item.analysis_type }}</td><td>{{ item.summary }}</td><td>{{ recs|length }}</td></tr>
+        {% else %}
+          <tr><td colspan="5" class="empty">No reports generated yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

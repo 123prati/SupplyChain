@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{ app_name }}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="{{ url_for('index') }}">
+      <span class="brand-mark">SC</span>
+      <span>
+        <strong>Supply Chain Intelligence Agent</strong>
+        <small>Decision Support System</small>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="{{ url_for('index') }}">Home</a>
+      <a href="{{ url_for('upload') }}">Upload</a>
+      <a href="{{ url_for('preview') }}">Preview</a>
+      <a href="{{ url_for('inventory') }}">Inventory</a>
+      <a href="{{ url_for('suppliers') }}">Suppliers</a>
+      <a href="{{ url_for('procurement') }}">Procurement</a>
+      <a href="{{ url_for('logistics') }}">Logistics</a>
+      <a href="{{ url_for('forecasting') }}">Forecasting</a>
+      <a href="{{ url_for('insights') }}">AI Insights</a>
+      <a href="{{ url_for('summary') }}">Summary</a>
+      <a href="{{ url_for('reports') }}">Reports</a>
+      <a href="{{ url_for('export') }}">Export</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="messages">
+          {% for category, message in messages %}
+            <div class="message {{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+
+  <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>

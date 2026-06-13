@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-head">
+  <div><p class="kicker">Logistics</p><h1>Transportation Cost and Delivery Risk</h1></div>
+</section>
+
+<section class="metric-grid">
+  <div class="metric"><span>Logistics Efficiency</span><strong>{{ analysis.metrics["Logistics Efficiency"] }}</strong></div>
+  <div class="metric"><span>Warehouse Utilization</span><strong>{{ analysis.metrics["Warehouse Utilization"] }}</strong></div>
+  <div class="metric"><span>Average Lead Time</span><strong>{{ analysis.metrics["Average Lead Time"] }}</strong></div>
+  <div class="metric"><span>Fulfillment Rate</span><strong>{{ analysis.metrics["Order Fulfillment Rate"] }}</strong></div>
+</section>
+
+<section class="panel">
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Product ID</th><th>Product</th><th>Warehouse</th><th>Order Qty</th><th>Transport Cost</th><th>Cost / Unit</th><th>Status</th><th>Risk</th></tr></thead>
+      <tbody>
+        {% for item in logistics %}
+          <tr><td>{{ item.Product_ID }}</td><td>{{ item.Product_Name }}</td><td>{{ item.Warehouse }}</td><td>{{ item.Order_Quantity|int }}</td><td>${{ "{:,.2f}".format(item.Transportation_Cost) }}</td><td>${{ "{:,.2f}".format(item.Cost_Per_Unit) }}</td><td>{{ item.Delivery_Status }}</td><td><span class="status status-{{ 'low-stock' if item.Delivery_Risk == 'High' else 'healthy' }}">{{ item.Delivery_Risk }}</span></td></tr>
+        {% else %}
+          <tr><td colspan="8" class="empty">No logistics data found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

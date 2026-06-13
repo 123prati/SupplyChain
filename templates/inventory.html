@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-head">
+  <div>
+    <p class="kicker">Inventory Management</p>
+    <h1>Stock Positions and Reorder Risk</h1>
+  </div>
+  <a class="btn btn-secondary" href="{{ url_for('export_dataset') }}">Download Dataset</a>
+</section>
+
+<section class="metric-grid">
+  <div class="metric"><span>Total Inventory</span><strong>{{ analysis.metrics["Total Inventory"] }}</strong></div>
+  <div class="metric"><span>Stockout Percentage</span><strong>{{ analysis.metrics["Stockout Percentage"] }}</strong></div>
+  <div class="metric"><span>Inventory Value</span><strong>{{ analysis.metrics["Inventory Value"] }}</strong></div>
+  <div class="metric"><span>Carrying Cost</span><strong>{{ analysis.metrics["Carrying Cost"] }}</strong></div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>Inventory Exceptions</h2></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Product ID</th><th>Product</th><th>Category</th><th>Warehouse</th><th>Inventory</th><th>Reorder Point</th><th>Safety Stock</th><th>Status</th></tr></thead>
+      <tbody>
+        {% for item in records %}
+          {% set status = "Reorder" if item.Inventory_Level <= item.Reorder_Point else "Healthy" %}
+          <tr>
+            <td>{{ item.Product_ID }}</td>
+            <td>{{ item.Product_Name }}</td>
+            <td>{{ item.Category }}</td>
+            <td>{{ item.Warehouse }}</td>
+            <td>{{ item.Inventory_Level|int }}</td>
+            <td>{{ item.Reorder_Point|int }}</td>
+            <td>{{ item.Safety_Stock|int }}</td>
+            <td><span class="status status-{{ 'low-stock' if status == 'Reorder' else 'healthy' }}">{{ status }}</span></td>
+          </tr>
+        {% else %}
+          <tr><td colspan="8" class="empty">No inventory rows found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>EOQ Recommendations</h2></div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Product ID</th><th>Product</th><th>EOQ</th><th>Safety Stock</th><th>Reorder Point</th></tr></thead>
+      <tbody>
+        {% for item in analysis.eoq %}
+          <tr><td>{{ item.Product_ID }}</td><td>{{ item.Product_Name }}</td><td>{{ item.EOQ|int }}</td><td>{{ item.Recommended_Safety_Stock|int }}</td><td>{{ item.Recommended_Reorder_Point|int }}</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

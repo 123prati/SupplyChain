@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-head">
+  <div><p class="kicker">Executive Summary</p><h1>Supply Chain Health Brief</h1></div>
+  <a class="btn btn-secondary" href="{{ url_for('export_report') }}">Download Report CSV</a>
+</section>
+
+<section class="panel">
+  <p class="lead-text">{{ analysis.summary }}</p>
+</section>
+
+<section class="panel">
+  <div class="panel-head"><h2>KPI Summary</h2></div>
+  <div class="metric-grid compact">
+    {% for key, value in analysis.metrics.items() %}
+      <div class="metric"><span>{{ key }}</span><strong>{{ value }}</strong></div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

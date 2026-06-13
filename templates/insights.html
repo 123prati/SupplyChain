@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-head">
+  <div><p class="kicker">AI Insights</p><h1>Recommended Management Actions</h1></div>
+</section>
+
+<section class="recommendation-grid">
+  {% for item in analysis.recommendations %}
+    <article class="recommendation">
+      <span class="severity severity-{{ item.priority|lower }}">{{ item.priority }}</span>
+      <h3>{{ item.title }}</h3>
+      <p><strong>{{ item.area }}</strong></p>
+      <p>{{ item.detail }}</p>
+    </article>
+  {% else %}
+    <p class="empty">No recommendations available.</p>
+  {% endfor %}
+</section>
+
+<div class="two-column">
+  <section class="panel">
+    <h2>Stock Shortages</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Product</th><th>Inventory</th><th>Reorder</th></tr></thead>
+        <tbody>{% for item in analysis.stock_shortage %}<tr><td>{{ item.Product_Name }}</td><td>{{ item.Inventory_Level|int }}</td><td>{{ item.Reorder_Point|int }}</td></tr>{% else %}<tr><td colspan="3" class="empty">None detected.</td></tr>{% endfor %}</tbody>
+      </table>
+    </div>
+  </section>
+  <section class="panel">
+    <h2>Slow-Moving Inventory</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Product</th><th>Inventory</th><th>Demand</th></tr></thead>
+        <tbody>{% for item in analysis.slow_moving %}<tr><td>{{ item.Product_Name }}</td><td>{{ item.Inventory_Level|int }}</td><td>{{ item.Demand|int }}</td></tr>{% else %}<tr><td colspan="3" class="empty">None detected.</td></tr>{% endfor %}</tbody>
+      </table>
+    </div>
+  </section>
+</div>
+{% endblock %}

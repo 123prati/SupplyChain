@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="page-head">
+  <div><p class="kicker">Data Preview</p><h1>{{ dataset.name }}</h1></div>
+  <a class="btn btn-primary" href="{{ url_for('index') }}">Analyze Dataset</a>
+</section>
+
+{% if missing_columns %}
+  <section class="message warning">Missing expected columns were filled during cleaning: {{ missing_columns|join(", ") }}</section>
+{% endif %}
+
+<section class="panel">
+  <div class="panel-head"><h2>First 50 Rows</h2><span>{{ dataset.row_count }} total rows</span></div>
+  <div class="table-wrap wide">
+    <table>
+      <thead><tr>{% for column in columns %}<th>{{ column }}</th>{% endfor %}</tr></thead>
+      <tbody>
+        {% for row in records %}
+          <tr>{% for column in columns %}<td>{{ row[column] }}</td>{% endfor %}</tr>
+        {% else %}
+          <tr><td colspan="{{ columns|length }}" class="empty">No rows found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}
